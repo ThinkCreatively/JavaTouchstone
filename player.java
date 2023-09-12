@@ -10,7 +10,6 @@ class Player {
   }
 
   // Getter Methods
-  
   public String getName() {
     return name;
   }
