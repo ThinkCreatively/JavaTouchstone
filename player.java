@@ -4,9 +4,9 @@ class Player {
   private String choice;
 
   // Public constructor
-  public Player(String name, String choice) {
-    this.name = name;
-    this.choice = choice;
+  public Player() {
+    this.name = "";
+    this.choice = "";
   }
 
   // Getter Methods
@@ -16,5 +16,14 @@ class Player {
 
   public String getChoice() {
     return choice;
+  }
+
+  // Setter Methods
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setChoice(String choice) {
+    this.choice = choice;
   }
 }
