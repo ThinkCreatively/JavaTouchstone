@@ -112,11 +112,11 @@ class Main {
 
       // Ask where player wants to move
       System.out.print(players[playerTurn].getName() + " where do you want to play your move? Ex:(1 = Space 1)");
+      placementChoice = playersInputs[playerTurn].nextLine().toUpperCase();
 
-      placementChoice = playersInputs[playerTurn].nextLine();
-
-      // Loop to prevent players, checks that input is one of the numbers left
-      while (placementChoice.matches("^[^0-8]+$") || gameBoard.getBoard().indexOf(placementChoice) == -1) {
+      // Checks that input is one of the numbers left and isn't an empty string
+      while (placementChoice.matches("^[^0-8\\s]+$") || gameBoard.getBoard().indexOf(placementChoice) == -1
+          || placementChoice.isEmpty()) {
         System.out.println("Please pick a number left available");
         placementChoice = playersInputs[playerTurn].nextLine();
       }
