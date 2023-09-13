@@ -16,7 +16,7 @@ class Main {
     }
   }
 
-  // Method that grabs the values from a row in the board
+  // Method that grabs the values of a row
   private static String checkRow(int start, int end, String[] rowValues) {
     StringBuilder row = new StringBuilder();
 
@@ -27,7 +27,7 @@ class Main {
     return row.toString();
   }
 
-  // Method that grabs the values from a column in the board
+  // Method that grabs the values of a column
   private static String checkColumn(int colNum, String[] colValues) {
     StringBuilder row = new StringBuilder();
 
@@ -43,6 +43,23 @@ class Main {
       row.append(colValues[2]);
       row.append(colValues[5]);
       row.append(colValues[8]);
+    }
+
+    return row.toString();
+  }
+
+  // Method that gravs the values of the diagonals
+  private static String checkDiagonal(int topIndex, String[] diagVals) {
+    StringBuilder row = new StringBuilder();
+
+    if (topIndex == 0) {
+      row.append(diagVals[0]);
+      row.append(diagVals[4]);
+      row.append(diagVals[8]);
+    } else {
+      row.append(diagVals[2]);
+      row.append(diagVals[4]);
+      row.append(diagVals[6]);
     }
 
     return row.toString();
@@ -144,12 +161,14 @@ class Main {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
           break;
         }
+
         // Vertical middle column
         String midColumn = checkColumn(2, boardValues);
         if (midColumn.equals("XXX")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
           break;
         }
+
         // Vertical right column
         String rightColumn = checkColumn(3, boardValues);
         if (rightColumn.equals("XXX")) {
@@ -157,6 +176,19 @@ class Main {
           break;
         }
 
+        // Diagonal left -> right
+        String leftDiagonal = checkDiagonal(0, boardValues);
+        if (leftDiagonal.equals("XXX")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          break;
+        }
+
+        // Diagonal right -> left
+        String rightDiagonal = checkDiagonal(2, boardValues);
+        if (rightDiagonal.equals("XXX")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          break;
+        }
       }
 
       // Switch to other players turn
