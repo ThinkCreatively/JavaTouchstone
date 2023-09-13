@@ -2,15 +2,16 @@ class Board {
   // Basic info of board
   private int xCount = 0;
   private int oCount = 0;
-  private int totalCount = this.xCount + this.oCount;
-  private String playerOne;
-  private String playerTwo;
-  private String winner;
+  private String board = "";
+  private String winner = "";
 
   // Public constructor
-  public Board(String playerOne, String playerTwo) {
-    this.playerOne = playerOne;
-    this.playerTwo = playerTwo;
+  public Board() {
+    this.board = "1" + "┃" + "2" + "┃" + "3" + "\n" +
+        "━" + "╋" + "━" + "╋" + "━" + "\n" +
+        "4" + "┃" + "5" + "┃" + "6" + "\n" +
+        "━" + "╋" + "━" + "╋" + "━" + "\n" +
+        "7" + "┃" + "8" + "┃" + "9";
   }
 
   // Getter Methods
@@ -23,18 +24,32 @@ class Board {
   }
 
   public int getTotalCount() {
-    return totalCount;
+    return getXCount() + getOCount();
   }
 
-  public String getPlayerOne() {
-    return playerOne;
-  }
-
-  public String getPlayerTwo() {
-    return playerTwo;
+  public String getBoard() {
+    return board;
   }
 
   public String getWinner() {
     return winner;
+  }
+
+  // Setter Methods
+
+  public void setXCount() {
+    this.xCount++;
+  }
+
+  public void setOCount() {
+    this.oCount++;
+  }
+
+  public void setBoard(String spaceNum, String gameChar) {
+    this.board = this.board.replace(spaceNum, gameChar);
+  }
+
+  public void setWinner(String winner) {
+    this.winner = winner;
   }
 }
