@@ -1,8 +1,18 @@
 import java.util.Scanner;
 
 class Main {
-  // Count used to access player inputs
-  private static int setupCount = 0;
+  private static void gather(Player player, Scanner playerInput, int playerNum, String funcName) {
+    if (funcName.equals("name")) {
+      System.out.print("Player " + playerNum + " name: ");
+      player.setName(playerInput.nextLine());
+      return;
+    }
+
+    while (!player.getChoice().equals("X") && !player.getChoice().equals("O")) {
+      System.out.print("Player " + playerNum + " choose 'X' or 'O': ");
+      player.setChoice(playerInput.nextLine());
+    }
+  }
 
   public static void main(String[] args) {
     // Create player's instances
@@ -11,49 +21,29 @@ class Main {
     Scanner playerOneInput = new Scanner(System.in);
     Scanner playerTwoInput = new Scanner(System.in);
 
-    // Arrays to hold players and their scanners
-    Player[] players = { playerOne, playerTwo };
-    Scanner[] playerInputs = { playerOneInput, playerTwoInput };
-
-    // Aliases
-    Player currentPlayer = players[setupCount];
-    Scanner currentPlayerInput = playerInputs[setupCount];
-
     // Welcome Message
     System.out.println("Welcome to my Tic Tac Toe game! \nPlease enter Player One's Name then Player Two");
 
-    while (!playerOne.getIsReady() && !playerTwo.getIsReady()) {
+    // Gather names
+    gather(playerOne, playerOneInput, 1, "name");
+    gather(playerTwo, playerTwoInput, 2, "name");
 
-      // Prompt player for name, +1 to account for 0 indexing
-      System.out.print("Player" + (setupCount == 0 ? " 1 " : " 2 ") + "name: ");
-
-      // Read a text entered by Player 1 and set the name of player
-      currentPlayer.setName(currentPlayerInput.nextLine());
-
-      // Prompt player for their choice of X or O
-      while (!currentPlayer.getChoice().equals("X") && !currentPlayer.getChoice().equals("O")) {
-        System.out.print("Player" + (setupCount == 0 ? " 1 " : " 2 ") + "choice (Please choose 'X' or 'O'): ");
-        currentPlayer.setChoice(currentPlayerInput.nextLine());
-        currentPlayer.setIsReady(true);
-      }
-
-      // Flipping setup count between 0 and 1
-      if (setupCount == 0) {
-        setupCount = 1;
-      } else {
-        setupCount = 0;
-      }
-
-      System.out.println(playerOne.getIsReady());
-      System.out.println(playerTwo.getIsReady());
+    // Gather Choices
+    gather(playerOne, playerOneInput, 1, "choice");
+    if (playerOne.getChoice().equals("X")) {
+      System.out.println("Player two will be O");
+      playerTwo.setChoice("O");
+    } else {
+      System.out.println("Player Two will be X");
+      playerTwo.setChoice("X");
     }
 
-    // Close scanner to avoid leak
+    System.out.println("p1 name: " + playerOne.getName());
+    System.out.println("p1 choice: " + playerOne.getChoice());
+    System.out.println("p2 name: " + playerTwo.getName());
+    System.out.println("p2 choice: " + playerTwo.getChoice());
 
-    playerInputs[0].close();
-    playerInputs[1].close();
-
-    System.out.println("player one is ready? " + playerOne.getIsReady());
-    System.out.println("player two is ready? " + playerTwo.getIsReady());
+    playerOneInput.close();
+    playerTwoInput.close();
   }
 }
