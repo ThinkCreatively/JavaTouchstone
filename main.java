@@ -113,7 +113,7 @@ class Main {
       // Ask where player wants to move
       System.out.print(players[playerTurn].getName() + " where do you want to play your move? Ex:(1 = Space 1)");
 
-      placementChoice = playersInputs[playerTurn].nextLine();
+      placementChoice = playersInputs[playerTurn].nextLine().toUpperCase();
 
       // Loop to prevent players, checks that input is one of the numbers left
       while (placementChoice.matches("^[^0-8]+$") || gameBoard.getBoard().indexOf(placementChoice) == -1) {
@@ -139,7 +139,7 @@ class Main {
         if (topRow.equals("XXX")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
           break;
-        } 
+        }
 
         if (topRow.equals("OOO")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
@@ -152,7 +152,7 @@ class Main {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
           break;
         }
-        
+
         if (middleRow.equals("OOO")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
@@ -176,7 +176,7 @@ class Main {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
           break;
         }
-        
+
         if (leftColumn.equals("OOO")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
@@ -188,7 +188,7 @@ class Main {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
           break;
         }
-        
+
         if (midColumn.equals("OOO")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
@@ -212,7 +212,7 @@ class Main {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
           break;
         }
-        
+
         if (leftDiagonal.equals("OOO")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
@@ -224,7 +224,7 @@ class Main {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
           break;
         }
-        
+
         if (rightDiagonal.equals("OOO")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
@@ -243,6 +243,9 @@ class Main {
     } else {
       System.out.println("No winner, game over.");
     }
+
+    // Show winning board
+    System.out.println("Winning Board: \n" + gameBoard.getBoard());
 
     // Close Scanners
     playerOneInput.close();
