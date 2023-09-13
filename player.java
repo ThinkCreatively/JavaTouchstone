@@ -7,7 +7,6 @@ class Player {
   public Player() {
     this.name = "";
     this.choice = "";
-
   }
 
   // Getter Methods

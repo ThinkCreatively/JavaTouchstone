@@ -21,7 +21,28 @@ class Main {
     StringBuilder row = new StringBuilder();
 
     for (int i = start; i < end; i++) {
-        row.append(rowValues[i]);
+      row.append(rowValues[i]);
+    }
+
+    return row.toString();
+  }
+
+  // Method that grabs the values from a column in the board
+  private static String checkColumn(int colNum, String[] colValues) {
+    StringBuilder row = new StringBuilder();
+
+    if (colNum == 1) {
+      row.append(colValues[0]);
+      row.append(colValues[3]);
+      row.append(colValues[6]);
+    } else if (colNum == 2) {
+      row.append(colValues[1]);
+      row.append(colValues[4]);
+      row.append(colValues[7]);
+    } else {
+      row.append(colValues[2]);
+      row.append(colValues[5]);
+      row.append(colValues[8]);
     }
 
     return row.toString();
@@ -96,26 +117,46 @@ class Main {
       // Check for win for X
       String[] boardValues = gameBoard.getBoardValues();
       if (gameBoard.getXCount() >= 3) {
-        // Horizontal Top Row
+        // Horizontal top row
         String topRow = checkRow(0, 3, boardValues);
         if (topRow.equals("XXX")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
           break;
         }
 
-        // Horizontal Middle Row
+        // Horizontal middle row
         String middleRow = checkRow(3, 6, boardValues);
         if (middleRow.equals("XXX")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
           break;
         }
 
-        // Horizontal Bottom Row
+        // Horizontal bottom row
         String bottomRow = checkRow(6, 9, boardValues);
         if (bottomRow.equals("XXX")) {
           gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
           break;
         }
+
+        // Vertical left column
+        String leftColumn = checkColumn(1, boardValues);
+        if (leftColumn.equals("XXX")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          break;
+        }
+        // Vertical middle column
+        String midColumn = checkColumn(2, boardValues);
+        if (midColumn.equals("XXX")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          break;
+        }
+        // Vertical right column
+        String rightColumn = checkColumn(3, boardValues);
+        if (rightColumn.equals("XXX")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          break;
+        }
+
       }
 
       // Switch to other players turn
