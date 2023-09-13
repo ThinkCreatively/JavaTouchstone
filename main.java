@@ -66,8 +66,8 @@ class Main {
   }
 
   // Method that returns player that chose X
-  private static Player determineWinner(Player playerOne, Player playerTwo) {
-    if (playerOne.getChoice().equals("X")) {
+  private static Player determineWinner(Player playerOne, Player playerTwo, String charToLookFor) {
+    if (playerOne.getChoice().equals(charToLookFor)) {
       return playerOne;
     }
 
@@ -131,62 +131,102 @@ class Main {
         gameBoard.setOCount();
       }
 
-      // Check for win for X
+      // Check for wins
       String[] boardValues = gameBoard.getBoardValues();
-      if (gameBoard.getXCount() >= 3) {
+      if (gameBoard.getXCount() >= 3 || gameBoard.getOCount() >= 3) {
         // Horizontal top row
         String topRow = checkRow(0, 3, boardValues);
         if (topRow.equals("XXX")) {
-          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
+          break;
+        } 
+
+        if (topRow.equals("OOO")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
         }
 
         // Horizontal middle row
         String middleRow = checkRow(3, 6, boardValues);
         if (middleRow.equals("XXX")) {
-          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
+          break;
+        }
+        
+        if (middleRow.equals("OOO")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
         }
 
         // Horizontal bottom row
         String bottomRow = checkRow(6, 9, boardValues);
         if (bottomRow.equals("XXX")) {
-          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
+          break;
+        }
+
+        if (bottomRow.equals("OOO")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
         }
 
         // Vertical left column
         String leftColumn = checkColumn(1, boardValues);
         if (leftColumn.equals("XXX")) {
-          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
+          break;
+        }
+        
+        if (leftColumn.equals("OOO")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
         }
 
         // Vertical middle column
         String midColumn = checkColumn(2, boardValues);
         if (midColumn.equals("XXX")) {
-          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
+          break;
+        }
+        
+        if (midColumn.equals("OOO")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
         }
 
         // Vertical right column
         String rightColumn = checkColumn(3, boardValues);
         if (rightColumn.equals("XXX")) {
-          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
+          break;
+        }
+
+        if (rightColumn.equals("OOO")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
         }
 
         // Diagonal left -> right
         String leftDiagonal = checkDiagonal(0, boardValues);
         if (leftDiagonal.equals("XXX")) {
-          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
+          break;
+        }
+        
+        if (leftDiagonal.equals("OOO")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
         }
 
         // Diagonal right -> left
         String rightDiagonal = checkDiagonal(2, boardValues);
         if (rightDiagonal.equals("XXX")) {
-          gameBoard.setWinner(determineWinner(playerOne, playerTwo).getName());
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "X").getName());
+          break;
+        }
+        
+        if (rightDiagonal.equals("OOO")) {
+          gameBoard.setWinner(determineWinner(playerOne, playerTwo, "O").getName());
           break;
         }
       }
