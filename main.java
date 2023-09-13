@@ -16,15 +16,6 @@ class Main {
     }
   }
 
-  private static boolean isNumber(String input) {
-    try {
-      Double.parseDouble(input);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
-  }
-
   public static void main(String[] args) {
     // Create player's instances
     Player playerOne = new Player();
@@ -52,26 +43,42 @@ class Main {
     // Create board instance
     Board gameBoard = new Board();
     int playerTurn = 0;
-    String choice = "";
     Scanner[] playersInputs = { playerOneInput, playerTwoInput };
     Player[] players = { playerOne, playerTwo };
+    String placementChoice = "";
 
     // Gameplay loop
-    while(gameBoard.getTotalCount() != 9) {
+    while (gameBoard.getTotalCount() != 9) {
       // Show Board
       System.out.println(gameBoard.getBoard() + "\n");
 
       // Ask where player wants to move
       System.out.print(players[playerTurn].getName() + " where do you want to play your move? Ex:(1 = Square 1)");
-      choice = playersInputs[playerTurn].nextLine();
 
-      // loop to prevent players 
-      while (!isNumber(choice)) {
-        System.out.print("Please pick a number left available");
-        choice = playersInputs[playerTurn].nextLine();
+      placementChoice = playersInputs[playerTurn].nextLine();
+
+      // loop to prevent players, checks that input is one of the numbers left
+      while (placementChoice.matches("^[^1-9]+$") || gameBoard.getBoard().indexOf(placementChoice) == -1) {
+        System.out.println("Please pick a number left available");
+        placementChoice = playersInputs[playerTurn].nextLine();
       }
-      // Update board
-      gameBoard.setBoard(playersInputs[playerTurn].nextLine(), players[playerTurn].getChoice());
+      // Update board & clear placement choie for next player
+      gameBoard.setBoard(placementChoice, players[playerTurn].getChoice());
+      placementChoice = "";
+
+      // Check for win for X
+      String[] boardValues = gameBoard.getBoardValues();
+      if (gameBoard.getXCount() >= 3) {
+        // Horizontal Top Row
+        if (boardValues[0].equals("X") && boardValues[1].equals("X") && boardValues[2].equals("X")) {
+          if (playerOne.getChoice().equals("X")) {
+            gameBoard.setWinner(playerOne.getName());
+          } else {
+            gameBoard.setWinner(playerTwo.getName());
+          }
+          break;
+        }
+      }
 
       // Update X or O count based on player choices
       if (players[playerTurn].getChoice().equals("X")) {
@@ -82,6 +89,15 @@ class Main {
 
       // Switch to other players turn
       playerTurn = playerTurn == 0 ? 1 : 0;
+    }
+
+    // Checking for win or tie, then printing correct message
+    if (gameBoard.getWinner().equals(playerOne.getName())) {
+      System.out.println("Congrats " + playerOne.getName() + "!");
+    } else if (gameBoard.getWinner().equals(playerTwo.getName())) {
+      System.out.println("Congrats " + playerTwo.getName() + "!");
+    } else {
+      System.out.println("No winner, game over.");
     }
 
     // Close Scanners

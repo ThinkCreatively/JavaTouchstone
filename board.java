@@ -3,15 +3,16 @@ class Board {
   private int xCount = 0;
   private int oCount = 0;
   private String board = "";
+  private String[] boardValues = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
   private String winner = "";
 
   // Public constructor
   public Board() {
-    this.board = "1" + "┃" + "2" + "┃" + "3" + "\n" +
+    this.board = boardValues[0] + "┃" + boardValues[1] + "┃" + boardValues[2] + "\n" +
         "━" + "╋" + "━" + "╋" + "━" + "\n" +
-        "4" + "┃" + "5" + "┃" + "6" + "\n" +
+        boardValues[3] + "┃" + boardValues[4] + "┃" + boardValues[5] + "\n" +
         "━" + "╋" + "━" + "╋" + "━" + "\n" +
-        "7" + "┃" + "8" + "┃" + "9";
+        boardValues[6] + "┃" + boardValues[7] + "┃" + boardValues[8];
   }
 
   // Getter Methods
@@ -29,6 +30,10 @@ class Board {
 
   public String getBoard() {
     return board;
+  }
+
+  public String[] getBoardValues() {
+    return boardValues;
   }
 
   public String getWinner() {
