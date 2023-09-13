@@ -3,7 +3,7 @@ class Board {
   private int xCount = 0;
   private int oCount = 0;
   private String board = "";
-  private String[] boardValues = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+  private String[] boardValues = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
   private String winner = "";
 
   // Public constructor
@@ -52,6 +52,8 @@ class Board {
 
   public void setBoard(String spaceNum, String gameChar) {
     this.board = this.board.replace(spaceNum, gameChar);
+    int parseNum = Integer.parseInt(spaceNum);
+    boardValues[parseNum] = gameChar;
   }
 
   public void setWinner(String winner) {

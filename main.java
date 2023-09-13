@@ -57,17 +57,18 @@ class Main {
 
       placementChoice = playersInputs[playerTurn].nextLine();
 
-      // loop to prevent players, checks that input is one of the numbers left
+      // Loop to prevent players, checks that input is one of the numbers left
       while (placementChoice.matches("^[^1-9]+$") || gameBoard.getBoard().indexOf(placementChoice) == -1) {
         System.out.println("Please pick a number left available");
         placementChoice = playersInputs[playerTurn].nextLine();
       }
-      // Update board & clear placement choie for next player
+      // Update board & clear placement choice for next player
       gameBoard.setBoard(placementChoice, players[playerTurn].getChoice());
       placementChoice = "";
 
       // Check for win for X
       String[] boardValues = gameBoard.getBoardValues();
+      System.out.println("boardValues 0,1,2: " + boardValues[0] + ", " + boardValues[1] + ", " + boardValues[2]);
       if (gameBoard.getXCount() >= 3) {
         // Horizontal Top Row
         if (boardValues[0].equals("X") && boardValues[1].equals("X") && boardValues[2].equals("X")) {
